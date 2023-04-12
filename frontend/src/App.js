@@ -9,8 +9,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<GamePanel />} />
-          <Route path="page1" element={<HomeScreen />} />
-          <Route path="page2" element={<GamePanel />} />
+          <Route
+            path={process.env.REACT_APP_HELLO_WORLD + "page1"}
+            element={<HomeScreen />}
+          />
+          <Route
+            path={process.env.REACT_APP_HELLO_WORLD + "page2"}
+            element={<GamePanel />}
+          />
         </Routes>
       </BrowserRouter>
     </>
