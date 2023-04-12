@@ -9,9 +9,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route index element={<GamePanel />} />
           <Route
-            path={process.env.REACT_APP_ROOT_URL + "page1"}
+            path={process.env.REACT_APP_ROOT_URL}
             element={<HomeScreen />}
           />
           <Route
