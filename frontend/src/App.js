@@ -14,7 +14,7 @@ function App() {
             element={<HomeScreen />}
           />
           <Route
-            path={process.env.REACT_APP_ROOT_URL + "page2"}
+            path={process.env.REACT_APP_ROOT_URL + "page2/"}
             element={<GamePanel />}
           />
         </Routes>
