@@ -1,16 +1,15 @@
 {
   "files": {
     "main.css": "/TenBoOnline/static/css/main.073c9b0a.css",
-    "main.js": "/TenBoOnline/static/js/main.2576c4f3.js",
+    "main.js": "/TenBoOnline/static/js/main.ea9bfd7c.js",
     "static/js/787.cda612ba.chunk.js": "/TenBoOnline/static/js/787.cda612ba.chunk.js",
-    "static/media/logo.svg": "/TenBoOnline/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/TenBoOnline/index.html",
     "main.073c9b0a.css.map": "/TenBoOnline/static/css/main.073c9b0a.css.map",
-    "main.2576c4f3.js.map": "/TenBoOnline/static/js/main.2576c4f3.js.map",
+    "main.ea9bfd7c.js.map": "/TenBoOnline/static/js/main.ea9bfd7c.js.map",
     "787.cda612ba.chunk.js.map": "/TenBoOnline/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.2576c4f3.js"
+    "static/js/main.ea9bfd7c.js"
   ]
 }
