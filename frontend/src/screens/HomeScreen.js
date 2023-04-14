@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useNavigation } from "react";
 // import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { getDatabase, ref, onValue } from "firebase/database";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -11,12 +14,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import TableRestaurantIcon from "@mui/icons-material/TableRestaurant";
 export default function HomeScreen() {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [roomId, setRoomId] = useState(0);
-  const handleSubmit = (args) => {
-    console.log(args);
-    // alert(args);
-  };
   const handleChangeUsername = (event) => {
     setUsername(event.target.value);
   };
@@ -25,7 +26,12 @@ export default function HomeScreen() {
     setRoomId(parseInt(Number(onlyInt)));
   };
   const joinRoom = () => {
-    console.log(username + "," + roomId);
+    // console.log(username + "," + roomId);
+    // db.collection("room").add({
+    //   name: roomId,
+    // });
+
+    navigate("game/", { state: { username: username, roomId: roomId } });
   };
   return (
     <>
@@ -45,7 +51,7 @@ export default function HomeScreen() {
           <Typography component="h1" variant="h5">
             ゲームに参加
           </Typography>
-          <Box onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required

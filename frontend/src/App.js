@@ -3,8 +3,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GamePanel from "./components/GamePanel";
 import HomeScreen from "./screens/HomeScreen";
+import GameScreen from "./screens/GameScreen";
 function App() {
-  console.log(process.env.REACT_APP_ROOT_URL);
+  // console.log(process.env.REACT_APP_ROOT_URL);
   return (
     <>
       <BrowserRouter>
@@ -14,8 +15,8 @@ function App() {
             element={<HomeScreen />}
           />
           <Route
-            path={process.env.REACT_APP_ROOT_URL + "page2/"}
-            element={<GamePanel />}
+            path={process.env.REACT_APP_ROOT_URL + "game/"}
+            element={<GameScreen />}
           />
         </Routes>
       </BrowserRouter>
