@@ -7,9 +7,12 @@ import {
   ref,
   onValue,
   push,
+  get,
   update,
   set,
 } from "firebase/database";
+
+import firebaseApp from "../services/firebase";
 
 import { useLocation } from "react-router-dom";
 
@@ -37,22 +40,52 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconButton, Stack } from "@mui/material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
+import ListAvatar from "./ListAvatar";
+
 function SimpleDialog(props) {
   //   const { onClose, open } = props;
   const onClose = props.onClose;
   const open = props.open;
   const compass = props.compass;
   const users = props.users;
+  const roomId = props.roomId;
+  // console.log(roomId);
 
   const [isRename, setIsRename] = useState(false);
   const [isRescore, setIsRescore] = useState(false);
+  // const [isRescore, setIsRescore] = useState(false);
 
+  const [newName, setNewName] = useState("");
+  const handleChangeUsername = (event) => {
+    setNewName(event.target.value);
+  };
+
+  const [newScore, setNewScore] = useState(0);
+  const handleChangeRoomId = (event) => {
+    const onlyInt = event.target.value.replace(/\D/g, "");
+    setNewScore(parseInt(Number(onlyInt)));
+  };
+
+  const closeAllInput = () => {
+    setNewName("");
+    setNewScore(0);
+    setIsRename(false);
+    setIsRescore(false);
+  };
+
+  // console.log(newName);
   const handleNameClick = () => {
+    // console.log("click name");
+    // console.log(users);
+    setNewName("");
+    setNewScore(0);
     setIsRescore(false);
     setIsRename(true);
   };
 
   const handleScoreClick = () => {
+    setNewName("");
+    setNewScore(0);
     setIsRename(false);
     setIsRescore(true);
   };
@@ -70,13 +103,70 @@ function SimpleDialog(props) {
 
   const DialogOnClose = () => {
     onClose();
-    setIsRename(false);
-    setIsRescore(false);
   };
 
   const Rename = () => {
+    // console.log("GameFolder/Rooms/" + roomId + "/users/" + compass);
+    const database = getDatabase(firebaseApp);
+    const postData = {
+      username: newName,
+    };
+    const pathRef = ref(
+      database,
+      "GameFolder/Rooms/" + roomId + "/users/" + compass
+    );
+
+    // get(pathRef)
+    //   .then((snapshot) => {
+    //     if (snapshot.exists()) {
+    //       console.log(snapshot.val());
+    //     } else {
+    //       console.log("No data available");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
+    update(pathRef, postData)
+      .then(() => {
+        // Data saved successfully!
+        // console.log("succese");
+      })
+      .catch((error) => {
+        // console.log(error);
+        // The write failed...
+      });
     setIsRename(false);
   };
+
+  const Rescore = () => {
+    // console.log("GameFolder/Rooms/" + roomId + "/users/" + compass);
+    const database = getDatabase(firebaseApp);
+    const postData = {
+      score: newScore,
+    };
+    const pathRef = ref(
+      database,
+      "GameFolder/Rooms/" + roomId + "/users/" + compass
+    );
+
+    update(pathRef, postData)
+      .then(() => {
+        // Data saved successfully!
+        // console.log("succese");
+      })
+      .catch((error) => {
+        // console.log(error);
+        // The write failed...
+      });
+    setIsRescore(false);
+  };
+
+  // useEffect(() => {
+  //   setNewName(users[compass].username);
+  //   setNewScore(users[compass].score);
+  // });
 
   return (
     <Dialog fullWidth={true} onClose={DialogOnClose} open={open}>
@@ -84,8 +174,10 @@ function SimpleDialog(props) {
         <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
           <Input
             autoFocus={true}
-            defaultValue={users[compass].username}
-            onBlur={blurNameField}
+            value={newName}
+            onChange={handleChangeUsername}
+            // defaultValue={users[compass].username}
+            // onBlur={blurNameField}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -109,13 +201,15 @@ function SimpleDialog(props) {
         <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
           <Input
             autoFocus={true}
-            defaultValue={users[compass].score}
-            onBlur={blurScoreField}
+            value={String(newScore)}
+            onChange={handleChangeRoomId}
+            // defaultValue={users[compass].score}
+            // onBlur={blurScoreField}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={Rename}
+                  onClick={Rescore}
                 >
                   {/* {true ? <VisibilityOff /> : <Visibility />}
                    */}
@@ -131,46 +225,39 @@ function SimpleDialog(props) {
         </DialogTitle>
       )}
       <List sx={{ pt: 0 }}>
-        <ListItem disableGutters>
-          <ListItemButton>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                <PersonIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disableGutters>
-          <ListItemButton>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                <PersonIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disableGutters>
-          <ListItemButton>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                <PersonIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disableGutters>
-          <ListItemButton>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                <PersonIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText />
-          </ListItemButton>
-        </ListItem>
+        <ListAvatar
+          parentCompass={compass}
+          roomId={roomId}
+          isMe={compass == 0}
+          compass={0}
+          users={users}
+          closeAllInput={closeAllInput}
+        ></ListAvatar>
+        <ListAvatar
+          parentCompass={compass}
+          roomId={roomId}
+          isMe={compass == 1}
+          compass={1}
+          users={users}
+          closeAllInput={closeAllInput}
+        ></ListAvatar>
+        <ListAvatar
+          parentCompass={compass}
+          roomId={roomId}
+          isMe={compass == 2}
+          compass={2}
+          users={users}
+          closeAllInput={closeAllInput}
+        ></ListAvatar>
+        <ListAvatar
+          parentCompass={compass}
+          roomId={roomId}
+          isMe={compass == 3}
+          compass={3}
+          users={users}
+          closeAllInput={closeAllInput}
+        ></ListAvatar>
+
         <ListItem disableGutters>
           <ListItemButton onClick={() => handleListItemClick("addAccount")}>
             <ListItemAvatar>
@@ -184,9 +271,11 @@ function SimpleDialog(props) {
   );
 }
 
-export default function CusTomAvatar(props) {
+export default function CustomAvatar(props) {
   const users = props.users;
   const compass = props.compass;
+
+  const roomId = props.roomId;
   //   const compass = props.compass
   const [open, setOpen] = useState(false);
   //   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
@@ -222,6 +311,7 @@ export default function CusTomAvatar(props) {
         onClose={handleClose}
         compass={compass}
         users={users}
+        roomId={roomId}
       />
     </Stack>
   );

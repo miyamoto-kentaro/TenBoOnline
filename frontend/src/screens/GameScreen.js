@@ -9,6 +9,7 @@ import {
   push,
   update,
   set,
+  get,
 } from "firebase/database";
 
 import { useLocation } from "react-router-dom";
@@ -30,13 +31,15 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import firebaseApp from "../services/firebase";
 
-import CusTomAvatar from "../components/CustomAvatar";
+import CustomAvatar from "../components/CustomAvatar";
 
 export default function GameScreen() {
   const location = useLocation();
   const roomId = location.state.roomId;
 
-  const [data, setData] = useState();
+  // console.log(roomId);
+
+  // const [data, setData] = useState();
   const [users, setUsers] = useState({
     users: {
       0: {
@@ -57,9 +60,10 @@ export default function GameScreen() {
       },
     },
   });
-  const [errors, setErrors] = useState();
 
-  console.log(data);
+  // console.log(users);
+
+  const [errors, setErrors] = useState();
 
   const initRoom = () => {
     const database = getDatabase(firebaseApp);
@@ -94,6 +98,17 @@ export default function GameScreen() {
 
     //define what area of the database you want to access
     const pathRef = ref(database, "GameFolder/Rooms/" + roomId);
+    // get(pathRef)
+    //   .then((snapshot) => {
+    //     if (snapshot.exists()) {
+    //       setUsers(snapshot.val());
+    //     } else {
+    //       console.log("No data available");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
     // console.log(path);
     onValue(
       pathRef,
@@ -104,7 +119,7 @@ export default function GameScreen() {
         if (newData === null) {
           initRoom();
         } else {
-          setData(newData);
+          // setData(newData);
           setUsers(newData);
         }
       },
@@ -144,19 +159,19 @@ export default function GameScreen() {
       >
         <Stack spacing={8} alignItems={"center"}>
           <Stack>
-            <CusTomAvatar users={users.users} compass={2} />
+            <CustomAvatar roomId={roomId} users={users.users} compass={2} />
           </Stack>
           <Stack direction="row" spacing={24} alignItems={"center"}>
             <Stack>
-              <CusTomAvatar users={users.users} compass={3} />
+              <CustomAvatar roomId={roomId} users={users.users} compass={3} />
             </Stack>
 
             <Stack>
-              <CusTomAvatar users={users.users} compass={1} />
+              <CustomAvatar roomId={roomId} users={users.users} compass={1} />
             </Stack>
           </Stack>
           <Stack>
-            <CusTomAvatar users={users.users} compass={0} />
+            <CustomAvatar roomId={roomId} users={users.users} compass={0} />
           </Stack>
         </Stack>
       </Box>
