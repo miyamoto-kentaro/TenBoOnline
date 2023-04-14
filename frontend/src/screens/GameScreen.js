@@ -37,7 +37,7 @@ export default function GameScreen() {
 
   const initRoom = () => {
     const database = getDatabase(firebaseApp);
-    const pathRef = ref(database, "GameFolder/Rooms/" + roomId);
+    const pathRef = ref(database, "GameFolder/Rooms/" + roomId + "/users");
     // console.log(path);
 
     set(pathRef, initUsers);
