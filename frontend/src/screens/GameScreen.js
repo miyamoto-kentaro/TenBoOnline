@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
+// import {  } from "react-router-dom";
 
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 // import {  } from "react-router-dom";
 
 // import useFirebase from "../hooks/use-firebase";
@@ -86,9 +86,11 @@ export default function GameScreen() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={leaveRoom}
+            // onClick={leaveRoom}
           >
-            <ArrowBackIcon />
+            <Link to="/">
+              <ArrowBackIcon />
+            </Link>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             ルームID : {roomId}
