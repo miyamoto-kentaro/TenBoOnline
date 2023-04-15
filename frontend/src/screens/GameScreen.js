@@ -48,8 +48,13 @@ export default function GameScreen() {
     // db.collection("room").add({
     //   name: roomId,
     // });
-
-    navigate("../");
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+      // dev code
+      navigate("/");
+    } else {
+      // production code
+      navigate("TenBoOnline/");
+    }
   };
   // console.log(users);
 

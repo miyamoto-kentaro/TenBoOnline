@@ -10,11 +10,7 @@ function App() {
   // console.log(process.env.REACT_APP_ROOT_URL);
   return (
     <>
-      <BrowserRouter
-        basename={
-          process.env.NODE_ENV === "development" ? "/" : "/TenBoOnline/"
-        }
-      >
+      <BrowserRouter>
         <Routes>
           <Route
             path={process.env.REACT_APP_ROOT_URL}
