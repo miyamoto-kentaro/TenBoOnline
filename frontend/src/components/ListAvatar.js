@@ -29,12 +29,17 @@ export default function ListAvatar(props) {
     closeAllInput();
   };
 
-  const AvatarColor = (isMe) => {
-    if (isMe) {
-      return red;
-    } else {
-      return blue;
-    }
+  // const AvatarColor = (isMe) => {
+  //   if (isMe) {
+  //     return red;
+  //   } else {
+  //     return blue;
+  //   }
+  // };
+
+  const AvatarColor = () => {
+    const color_list = ["lightBlue", "lightGreen", "orange", "pink"];
+    return color_list[AvatarListIndex];
   };
   return (
     <div>
@@ -56,8 +61,8 @@ export default function ListAvatar(props) {
             <ListItemAvatar>
               <Avatar
                 sx={{
-                  bgcolor: AvatarColor(isMe)[100],
-                  color: AvatarColor(isMe)[600],
+                  bgcolor: AvatarColor,
+                  color: "black",
                 }}
               >
                 {users[AvatarListIndex].username.substring(0, 2)}

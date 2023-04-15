@@ -15,6 +15,10 @@ export default function CustomAvatar(props) {
 
   const [isDialogOpen, setisDialogOpen] = useState(false);
 
+  const AvatarColor = () => {
+    const color_list = ["lightBlue", "lightGreen", "orange", "pink"];
+    return color_list[AvatarPosition];
+  };
   const handleAvatarClick = () => {
     setisDialogOpen(true);
   };
@@ -28,18 +32,25 @@ export default function CustomAvatar(props) {
 
   return (
     <Stack>
-      <Button onClick={handleAvatarClick}>
+      <IconButton onClick={handleAvatarClick}>
         <Badge
           badgeContent={users[AvatarPosition].score}
           max={1000000}
           color="primary"
         >
-          <Avatar sx={{ bgcolor: "secondary.main" }}>
+          <Avatar
+            sx={{
+              height: "70px",
+              width: "70px",
+              bgcolor: AvatarColor(),
+              color: "black",
+            }}
+          >
             {users[AvatarPosition].username.substring(0, 2)}
             {/* miyayay */}
           </Avatar>
         </Badge>
-      </Button>
+      </IconButton>
 
       {/* <Button variant="outlined" onClick={handleClickOpen}>
         Open simple dialog

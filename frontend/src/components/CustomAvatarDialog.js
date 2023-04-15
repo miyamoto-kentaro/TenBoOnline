@@ -37,8 +37,12 @@ export default function CustomAvatarDialog(props) {
 
   const [newScore, setNewScore] = useState(0);
   const handleChangeRoomId = (event) => {
-    const onlyInt = event.target.value.replace(/\D/g, "");
-    setNewScore(parseInt(Number(onlyInt)));
+    const text = event.target.value;
+    const onlyInt = parseInt(text.replace(/[^\d]/g, ""));
+    // const onlyInt = text.includes("-")
+    //   ? "-" + toString(parseInt(text.replace(/[^\d]/g, "")))
+    //   : toString(parseInt(text.replace(/[^\d]/g, "")));
+    setNewScore(onlyInt);
   };
 
   const closeAllInput = () => {
@@ -80,7 +84,7 @@ export default function CustomAvatarDialog(props) {
   const Rescore = () => {
     const database = getDatabase(firebaseApp);
     const postData = {
-      score: newScore,
+      score: parseInt(newScore),
     };
     const pathRef = ref(
       database,
