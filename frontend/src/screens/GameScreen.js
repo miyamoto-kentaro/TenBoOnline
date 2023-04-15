@@ -53,7 +53,7 @@ export default function GameScreen() {
       navigate("/");
     } else {
       // production code
-      navigate("TenBoOnline/");
+      navigate("../TenBoOnline/");
     }
   };
   // console.log(users);
