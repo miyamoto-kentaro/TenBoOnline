@@ -1,6 +1,8 @@
 // import logo from "./logo.svg";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
+
+// import { HashRouter } from 'react-router-dom';
 import GamePanel from "./components/GamePanel";
 import HomeScreen from "./screens/HomeScreen";
 import GameScreen from "./screens/GameScreen";

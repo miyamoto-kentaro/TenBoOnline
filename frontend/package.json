@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "homepage": "https://kentaro-miyamoto.github.io/TenBoOnline/",
+  "homepage": "https://kentaro-miyamoto.github.io/TenBoOnline",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
