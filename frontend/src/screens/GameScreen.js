@@ -49,7 +49,7 @@ export default function GameScreen() {
     //   name: roomId,
     // });
 
-    navigate("/");
+    navigate("../");
   };
   // console.log(users);
 
