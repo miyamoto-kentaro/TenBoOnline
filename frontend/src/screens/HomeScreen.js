@@ -38,9 +38,12 @@ export default function HomeScreen() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "lightGreen" }}>
             <TableRestaurantIcon />
           </Avatar>
+          <Typography component="h1" variant="h4">
+            TenBoOnline
+          </Typography>
           <Typography component="h1" variant="h5">
             ゲームに参加
           </Typography>
