@@ -16,16 +16,19 @@ export default function ListAvatar(props) {
   const AvatarListIndex = props.AvatarListIndex;
   const closeAllInput = props.closeAllInput;
   const roomId = props.roomId;
+  const isActiveListAvatar = props.isActiveListAvatar;
+  const activateListAvatar = props.activateListAvatar;
 
-  const isMe = AvatarListIndex === AvatarPosition;
+  // const isMe = AvatarListIndex === AvatarPosition;
   // console.log(isMe);
 
   //   const compass = props.compass
-  const [isActive, setIsActive] = useState(false);
+  // const [isActive, setIsActive] = useState(isActiveListAvatar[AvatarListIndex]);
   //   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
   const handleClick = () => {
-    setIsActive(true);
+    // setIsActive(true);
+    activateListAvatar(AvatarListIndex);
     closeAllInput();
   };
 
@@ -41,9 +44,13 @@ export default function ListAvatar(props) {
     const color_list = ["lightBlue", "lightGreen", "orange", "pink"];
     return color_list[AvatarListIndex];
   };
+
+  // const blurListItem = ()=>{
+  //   setIsActive(false)
+  // }
   return (
     <div>
-      {isActive ? (
+      {isActiveListAvatar[AvatarListIndex] ? (
         <ListItem disableGutters>
           <ListItemButton>
             <RonOrTsumoForm
@@ -51,7 +58,7 @@ export default function ListAvatar(props) {
               users={users}
               AvatarPosition={AvatarPosition}
               AvatarListIndex={AvatarListIndex}
-              setIsActive={setIsActive}
+              activateListAvatar={activateListAvatar}
             />
           </ListItemButton>
         </ListItem>

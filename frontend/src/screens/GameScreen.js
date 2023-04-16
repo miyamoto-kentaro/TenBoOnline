@@ -16,6 +16,7 @@ import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
+import Chip from "@mui/material/Chip";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -34,13 +35,19 @@ export default function GameScreen() {
   }));
   // const [data, setData] = useState();
   const [users, setUsers] = useState(initUsers);
+  const [reBo, setReBo] = useState(0);
 
   const initRoom = () => {
     const database = getDatabase(firebaseApp);
-    const pathRef = ref(database, "GameFolder/Rooms/" + roomId + "/users");
+    const pathRef = ref(database, "GameFolder/Rooms/" + roomId);
     // console.log(path);
 
-    set(pathRef, initUsers);
+    const initData = {
+      users: initUsers,
+      r: 0,
+    };
+
+    set(pathRef, initData);
   };
 
   const leaveRoom = () => {
@@ -115,10 +122,11 @@ export default function GameScreen() {
           <Stack>
             <CustomAvatar roomId={roomId} users={users} AvatarPosition={2} />
           </Stack>
-          <Stack direction="row" spacing={24} alignItems={"center"}>
+          <Stack direction="row" spacing={5} alignItems={"center"}>
             <Stack>
               <CustomAvatar roomId={roomId} users={users} AvatarPosition={3} />
             </Stack>
+            <Chip label={"リーチ棒:" + reBo} clickable />
 
             <Stack>
               <CustomAvatar roomId={roomId} users={users} AvatarPosition={1} />

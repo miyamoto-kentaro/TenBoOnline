@@ -13,6 +13,9 @@ import Input from "@mui/material/Input";
 import { blue, red } from "@mui/material/colors";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import Typography from "@mui/material/Typography";
 
 import { IconButton, Stack } from "@mui/material";
 import PanToolAltIcon from "@mui/icons-material/PanToolAlt";
@@ -24,8 +27,8 @@ export default function RonOrTsumoForm(props) {
   const AvatarListIndex = props.AvatarListIndex;
   const AvatarPosition = props.AvatarPosition;
   // const onBlurAction = props.onBlurAction;
-  const setIsActive = props.setIsActive;
-  const DialogClose = props.DialogClose;
+  const activateListAvatar = props.activateListAvatar;
+  // const DialogClose = props.DialogClose;
 
   const isMe = AvatarListIndex === AvatarPosition;
 
@@ -59,12 +62,9 @@ export default function RonOrTsumoForm(props) {
     setSelectDealer(event.target.value);
   };
 
-  const AvatarColor = (isMe) => {
-    if (isMe) {
-      return red;
-    } else {
-      return blue;
-    }
+  const AvatarColor = () => {
+    const color_list = ["lightBlue", "lightGreen", "orange", "pink"];
+    return color_list[AvatarListIndex];
   };
 
   const toRon = () => {
@@ -102,8 +102,8 @@ export default function RonOrTsumoForm(props) {
 
     // console.log(isMe);
     // console.log(AvatarListIndex);
-    setIsActive(false);
-    DialogClose();
+    activateListAvatar(null);
+    // DialogClose();
   };
 
   const toThumo = () => {
@@ -142,8 +142,8 @@ export default function RonOrTsumoForm(props) {
 
     // console.log(isMe);
     // console.log(compass);
-    setIsActive(false);
-    DialogClose();
+    activateListAvatar(null);
+    // DialogClose();
   };
   if (isMe) {
     return (
@@ -153,8 +153,8 @@ export default function RonOrTsumoForm(props) {
           <Stack direction="row" spacing={0}>
             <Avatar
               sx={{
-                bgcolor: AvatarColor(isMe)[100],
-                color: AvatarColor(isMe)[600],
+                bgcolor: AvatarColor(),
+                color: "black",
               }}
             >
               {users[AvatarListIndex].username.substring(0, 2)}
@@ -162,6 +162,7 @@ export default function RonOrTsumoForm(props) {
 
             <Stack spacing={0}>
               <FormControl variant="standard">
+                {/* <InputLabel>親選択</InputLabel> */}
                 <Select
                   value={SelectDealer}
                   onChange={handleChangeDealer}
@@ -180,6 +181,7 @@ export default function RonOrTsumoForm(props) {
                     {users[3].username.substring(0, 2)}
                   </MenuItem>
                 </Select>
+                <FormHelperText>親選択</FormHelperText>
               </FormControl>
 
               <Stack direction="row" spacing={0}>
@@ -189,7 +191,7 @@ export default function RonOrTsumoForm(props) {
                     value={String(DealerThumoScore)}
                     onChange={handleChangeDealerThumoScore}
                     // onBlur={onBlurAction}
-
+                    autoFocus={true}
                     endAdornment={
                       <InputAdornment position="end">
                         <div>all</div>
@@ -205,14 +207,16 @@ export default function RonOrTsumoForm(props) {
               onClick={toThumo}
             >
               <ThumbUpIcon />
+
+              <Typography variant="caption">ツモ！！</Typography>
             </IconButton>
           </Stack>
         ) : (
           <Stack direction="row" spacing={0}>
             <Avatar
               sx={{
-                bgcolor: AvatarColor(isMe)[100],
-                color: AvatarColor(isMe)[600],
+                bgcolor: AvatarColor(),
+                color: "black",
               }}
             >
               {users[AvatarListIndex].username.substring(0, 2)}
@@ -251,6 +255,7 @@ export default function RonOrTsumoForm(props) {
                       <InputAdornment position="end">/</InputAdornment>
                     }
                   />
+                  <FormHelperText>子</FormHelperText>
                 </FormControl>
 
                 <FormControl>
@@ -259,16 +264,18 @@ export default function RonOrTsumoForm(props) {
                     value={String(ThumoScoreFromDealer)}
                     onChange={handleChangeThumoScoreFromDealer}
                     placeholder="親"
+                    autoFocus={true}
                     // endAdornment={
                     //   <InputAdornment position="end"></InputAdornment>
                     // }
                   />
+                  <FormHelperText>親</FormHelperText>
                 </FormControl>
               </Stack>
             </Stack>
-
             <IconButton onClick={toThumo}>
               <ThumbUpIcon />
+              <Typography variant="caption">ツモ！！</Typography>
             </IconButton>
           </Stack>
         )}
@@ -280,8 +287,8 @@ export default function RonOrTsumoForm(props) {
         <Stack direction="row" spacing={0}>
           <Avatar
             sx={{
-              bgcolor: AvatarColor(isMe)[100],
-              color: AvatarColor(isMe)[600],
+              bgcolor: AvatarColor(),
+              color: "black",
             }}
           >
             {users[AvatarListIndex].username.substring(0, 2)}
@@ -293,12 +300,14 @@ export default function RonOrTsumoForm(props) {
                 type="number"
                 value={String(RonScore)}
                 onChange={handleChangeRonScore}
+                autoFocus={true}
               />
             </FormControl>
           </Stack>
 
           <IconButton aria-label="toggle password visibility" onClick={toRon}>
             <PanToolAltIcon />
+            <Typography variant="caption">ロン！！</Typography>
           </IconButton>
         </Stack>
       </>

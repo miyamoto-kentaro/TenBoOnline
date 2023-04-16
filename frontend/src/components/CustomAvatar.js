@@ -12,6 +12,7 @@ export default function CustomAvatar(props) {
   const users = props.users;
   const roomId = props.roomId;
   const AvatarPosition = props.AvatarPosition;
+  const activateListAvatar = props.activateListAvatar;
 
   const [isDialogOpen, setisDialogOpen] = useState(false);
 

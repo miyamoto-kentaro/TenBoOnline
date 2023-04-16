@@ -26,6 +26,21 @@ export default function CustomAvatarDialog(props) {
   const roomId = props.roomId;
   // console.log(roomId);
 
+  const [isActiveListAvatar, setIsActiveListAvatar] = useState([
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const activateListAvatar = (AvatarListIndex) => {
+    const newActive = [false, false, false, false];
+    if (AvatarListIndex != null) {
+      newActive[AvatarListIndex] = true;
+    }
+    setIsActiveListAvatar(newActive);
+  };
+
   const [isRenaming, setIsRenaming] = useState(false);
   const [isRescoring, setIsRescoring] = useState(false);
   // const [isRescoring, setIsRescoring] = useState(false);
@@ -155,6 +170,8 @@ export default function CustomAvatarDialog(props) {
       <List sx={{ pt: 0 }}>
         <ListAvatar
           DialogClose={closeDialog}
+          isActiveListAvatar={isActiveListAvatar}
+          activateListAvatar={activateListAvatar}
           AvatarPosition={AvatarPosition}
           roomId={roomId}
           AvatarListIndex={0}
@@ -163,6 +180,8 @@ export default function CustomAvatarDialog(props) {
         ></ListAvatar>
         <ListAvatar
           DialogClose={closeDialog}
+          isActiveListAvatar={isActiveListAvatar}
+          activateListAvatar={activateListAvatar}
           AvatarPosition={AvatarPosition}
           roomId={roomId}
           AvatarListIndex={1}
@@ -171,6 +190,8 @@ export default function CustomAvatarDialog(props) {
         ></ListAvatar>
         <ListAvatar
           DialogClose={closeDialog}
+          isActiveListAvatar={isActiveListAvatar}
+          activateListAvatar={activateListAvatar}
           AvatarPosition={AvatarPosition}
           roomId={roomId}
           AvatarListIndex={2}
@@ -179,6 +200,8 @@ export default function CustomAvatarDialog(props) {
         ></ListAvatar>
         <ListAvatar
           DialogClose={closeDialog}
+          isActiveListAvatar={isActiveListAvatar}
+          activateListAvatar={activateListAvatar}
           AvatarPosition={AvatarPosition}
           roomId={roomId}
           AvatarListIndex={3}
