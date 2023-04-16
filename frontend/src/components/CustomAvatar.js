@@ -9,10 +9,10 @@ import { IconButton, Stack } from "@mui/material";
 import CustomAvatarDialog from "./CustomAvatarDialog";
 
 export default function CustomAvatar(props) {
+  const reBo = props.reBo;
   const users = props.users;
   const roomId = props.roomId;
   const AvatarPosition = props.AvatarPosition;
-  const activateListAvatar = props.activateListAvatar;
 
   const [isDialogOpen, setisDialogOpen] = useState(false);
 
@@ -61,6 +61,7 @@ export default function CustomAvatar(props) {
         isDialogOpen={isDialogOpen}
         closeDialog={closeDialog}
         AvatarPosition={AvatarPosition}
+        reBo={reBo}
         users={users}
         roomId={roomId}
       />

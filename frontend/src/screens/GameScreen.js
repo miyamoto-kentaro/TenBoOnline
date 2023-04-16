@@ -21,6 +21,7 @@ import Chip from "@mui/material/Chip";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import CustomAvatar from "../components/CustomAvatar";
+import ReBo from "../components/ReBo";
 
 export default function GameScreen() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ export default function GameScreen() {
 
     const initData = {
       users: initUsers,
-      r: 0,
+      reBo: 0,
     };
 
     set(pathRef, initData);
@@ -69,7 +70,7 @@ export default function GameScreen() {
     //connect to app database with config settings
     const database = getDatabase(firebaseApp);
 
-    const pathRef = ref(database, "GameFolder/Rooms/" + roomId + "/users");
+    const pathRef = ref(database, "GameFolder/Rooms/" + roomId);
     onValue(
       pathRef,
       (snapshot) => {
@@ -81,7 +82,8 @@ export default function GameScreen() {
         } else {
           // setData(newData);
           // console.log(newData.users);
-          setUsers(newData);
+          setUsers(newData.users);
+          setReBo(newData.reBo);
         }
       },
       (error) => {}
@@ -120,20 +122,41 @@ export default function GameScreen() {
         {/* AvatarPositionはCustomAvatarの場所 */}
         <Stack spacing={8} alignItems={"center"}>
           <Stack>
-            <CustomAvatar roomId={roomId} users={users} AvatarPosition={2} />
+            <CustomAvatar
+              reBo={reBo}
+              roomId={roomId}
+              users={users}
+              AvatarPosition={2}
+            />
           </Stack>
           <Stack direction="row" spacing={5} alignItems={"center"}>
             <Stack>
-              <CustomAvatar roomId={roomId} users={users} AvatarPosition={3} />
+              <CustomAvatar
+                reBo={reBo}
+                roomId={roomId}
+                users={users}
+                AvatarPosition={3}
+              />
             </Stack>
-            <Chip label={"リーチ棒:" + reBo} clickable />
+
+            <ReBo roomId={roomId} users={users} reBo={reBo} />
 
             <Stack>
-              <CustomAvatar roomId={roomId} users={users} AvatarPosition={1} />
+              <CustomAvatar
+                reBo={reBo}
+                roomId={roomId}
+                users={users}
+                AvatarPosition={1}
+              />
             </Stack>
           </Stack>
           <Stack>
-            <CustomAvatar roomId={roomId} users={users} AvatarPosition={0} />
+            <CustomAvatar
+              reBo={reBo}
+              roomId={roomId}
+              users={users}
+              AvatarPosition={0}
+            />
           </Stack>
         </Stack>
       </Box>

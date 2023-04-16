@@ -12,10 +12,19 @@ import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
 import Input from "@mui/material/Input";
 import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import Badge from "@mui/material/Badge";
 
+import ListItem from "@mui/material/ListItem";
+import Chip from "@mui/material/Chip";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemButton from "@mui/material/ListItemButton";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
 import ListAvatar from "./ListAvatar";
+import { Button } from "@mui/material";
+import ReBo from "./ReBo";
 
 export default function CustomAvatarDialog(props) {
   //   const { closeDialog, open } = props;
@@ -110,6 +119,26 @@ export default function CustomAvatarDialog(props) {
     setIsRescoring(false);
   };
 
+  const reBo = props.reBo;
+
+  const getReBo = () => {
+    const database = getDatabase(firebaseApp);
+    const pathRef = ref(database, "GameFolder/Rooms/" + roomId);
+    const newData = {
+      reBo: 0,
+    };
+    update(pathRef, newData).then(() => {
+      const pathRef = ref(
+        database,
+        "GameFolder/Rooms/" + roomId + "/users/" + AvatarPosition
+      );
+      const newData = {
+        score: users[AvatarPosition].score + reBo,
+      };
+      update(pathRef, newData);
+    });
+  };
+
   return (
     <Dialog fullWidth={true} onClose={closeDialog} open={isDialogOpen}>
       {isRenaming ? (
@@ -163,9 +192,11 @@ export default function CustomAvatarDialog(props) {
           />
         </FormControl>
       ) : (
-        <DialogTitle onClick={handleScoreClick}>
-          {users[AvatarPosition].score}
-        </DialogTitle>
+        <Stack direction={"row"}>
+          <DialogTitle onClick={handleScoreClick}>
+            {users[AvatarPosition].score}
+          </DialogTitle>
+        </Stack>
       )}
       <List sx={{ pt: 0 }}>
         <ListAvatar
@@ -208,6 +239,15 @@ export default function CustomAvatarDialog(props) {
           users={users}
           closeAllInput={closeAllInput}
         ></ListAvatar>
+
+        <ListItem>
+          <Chip
+            label="リーチ棒を拾う"
+            color="error"
+            clickable
+            onClick={getReBo}
+          />
+        </ListItem>
       </List>
     </Dialog>
   );
