@@ -179,9 +179,14 @@ export default function RonOrTsumoForm(props) {
                   <MenuItem value={2}>
                     {users[2].username.substring(0, 2)}
                   </MenuItem>
-                  <MenuItem value={3}>
-                    {users[3].username.substring(0, 2)}
-                  </MenuItem>
+
+                  {isSanma === false ? (
+                    <MenuItem value={3}>
+                      {users[3].username.substring(0, 2)}
+                    </MenuItem>
+                  ) : (
+                    <></>
+                  )}
                 </Select>
                 <FormHelperText>親選択</FormHelperText>
               </FormControl>
@@ -239,9 +244,14 @@ export default function RonOrTsumoForm(props) {
                   <MenuItem value={2}>
                     {users[2].username.substring(0, 2)}
                   </MenuItem>
-                  <MenuItem value={3}>
-                    {users[3].username.substring(0, 2)}
-                  </MenuItem>
+
+                  {isSanma === false ? (
+                    <MenuItem value={3}>
+                      {users[3].username.substring(0, 2)}
+                    </MenuItem>
+                  ) : (
+                    <></>
+                  )}
                 </Select>
               </FormControl>
 
