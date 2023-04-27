@@ -33,6 +33,8 @@ export default function CustomAvatarDialog(props) {
   const AvatarPosition = props.AvatarPosition;
   const users = props.users;
   const roomId = props.roomId;
+
+  const isSanma = props.isSanma;
   // console.log(roomId);
 
   const [isActiveListAvatar, setIsActiveListAvatar] = useState([
@@ -200,6 +202,7 @@ export default function CustomAvatarDialog(props) {
       )}
       <List sx={{ pt: 0 }}>
         <ListAvatar
+          isSanma={isSanma}
           DialogClose={closeDialog}
           isActiveListAvatar={isActiveListAvatar}
           activateListAvatar={activateListAvatar}
@@ -210,6 +213,7 @@ export default function CustomAvatarDialog(props) {
           closeAllInput={closeAllInput}
         ></ListAvatar>
         <ListAvatar
+          isSanma={isSanma}
           DialogClose={closeDialog}
           isActiveListAvatar={isActiveListAvatar}
           activateListAvatar={activateListAvatar}
@@ -220,6 +224,7 @@ export default function CustomAvatarDialog(props) {
           closeAllInput={closeAllInput}
         ></ListAvatar>
         <ListAvatar
+          isSanma={isSanma}
           DialogClose={closeDialog}
           isActiveListAvatar={isActiveListAvatar}
           activateListAvatar={activateListAvatar}
@@ -229,17 +234,22 @@ export default function CustomAvatarDialog(props) {
           users={users}
           closeAllInput={closeAllInput}
         ></ListAvatar>
-        <ListAvatar
-          DialogClose={closeDialog}
-          isActiveListAvatar={isActiveListAvatar}
-          activateListAvatar={activateListAvatar}
-          AvatarPosition={AvatarPosition}
-          roomId={roomId}
-          AvatarListIndex={3}
-          users={users}
-          closeAllInput={closeAllInput}
-        ></ListAvatar>
 
+        {isSanma === false ? (
+          <ListAvatar
+            isSanma={isSanma}
+            DialogClose={closeDialog}
+            isActiveListAvatar={isActiveListAvatar}
+            activateListAvatar={activateListAvatar}
+            AvatarPosition={AvatarPosition}
+            roomId={roomId}
+            AvatarListIndex={3}
+            users={users}
+            closeAllInput={closeAllInput}
+          ></ListAvatar>
+        ) : (
+          <></>
+        )}
         <ListItem>
           <Chip
             label="リーチ棒を拾う"

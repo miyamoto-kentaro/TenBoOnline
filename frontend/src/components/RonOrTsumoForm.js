@@ -28,6 +28,7 @@ export default function RonOrTsumoForm(props) {
   const AvatarPosition = props.AvatarPosition;
   // const onBlurAction = props.onBlurAction;
   const activateListAvatar = props.activateListAvatar;
+  const isSanma = props.isSanma;
   // const DialogClose = props.DialogClose;
 
   const isMe = AvatarListIndex === AvatarPosition;
@@ -108,8 +109,9 @@ export default function RonOrTsumoForm(props) {
 
   const toThumo = () => {
     const nowUsers = users;
+    const UserNum = isSanma ? 3 : 4;
     if (AvatarPosition === SelectDealer) {
-      for (let index = 0; index < 4; index++) {
+      for (let index = 0; index < UserNum; index++) {
         if (index === AvatarPosition) {
         } else {
           nowUsers[index].score -= DealerThumoScore;
@@ -117,7 +119,7 @@ export default function RonOrTsumoForm(props) {
         }
       }
     } else {
-      for (let index = 0; index < 4; index++) {
+      for (let index = 0; index < UserNum; index++) {
         if (index === AvatarPosition) {
         } else if (index === SelectDealer) {
           nowUsers[index].score -= ThumoScoreFromDealer;

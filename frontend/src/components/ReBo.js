@@ -16,6 +16,8 @@ export default function ReBo(props) {
   const reBo = props.reBo;
   const users = props.users;
   const roomId = props.roomId;
+  const isSanma = props.isSanma;
+
   const [isDialogOpen, setisDialogOpen] = useState(false);
 
   const handleReBoClick = () => {
@@ -114,24 +116,28 @@ export default function ReBo(props) {
               </ListItemAvatar>
             </ListItemButton>
           </ListItem>
-          <ListItem disableGutters>
-            <ListItemButton
-              onClick={() => {
-                handleClick(3);
-              }}
-            >
-              <ListItemAvatar>
-                <Avatar
-                  sx={{
-                    bgcolor: AvatarColor(3),
-                    color: "black",
-                  }}
-                >
-                  {users[3].username.substring(0, 2)}
-                </Avatar>
-              </ListItemAvatar>
-            </ListItemButton>
-          </ListItem>
+          {isSanma === false ? (
+            <ListItem disableGutters>
+              <ListItemButton
+                onClick={() => {
+                  handleClick(3);
+                }}
+              >
+                <ListItemAvatar>
+                  <Avatar
+                    sx={{
+                      bgcolor: AvatarColor(3),
+                      color: "black",
+                    }}
+                  >
+                    {users[3].username.substring(0, 2)}
+                  </Avatar>
+                </ListItemAvatar>
+              </ListItemButton>
+            </ListItem>
+          ) : (
+            <></>
+          )}
         </List>
       </Dialog>
     </>

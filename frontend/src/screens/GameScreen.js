@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 // import {  } from "react-router-dom";
 
 // import useFirebase from "../hooks/use-firebase";
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import { getDatabase, ref, onValue, set, update } from "firebase/database";
 import firebaseApp from "../services/firebase";
 
 import Stack from "@mui/material/Stack";
@@ -17,8 +17,12 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Chip from "@mui/material/Chip";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Avatar from "@mui/material/Avatar";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 import CustomAvatar from "../components/CustomAvatar";
 import ReBo from "../components/ReBo";
@@ -38,6 +42,18 @@ export default function GameScreen() {
   const [users, setUsers] = useState(initUsers);
   const [reBo, setReBo] = useState(0);
 
+  const [isSanma, setIsSanma] = useState(false);
+
+  const handleChangeIsSanma = () => {
+    const database = getDatabase(firebaseApp);
+    const pathRef = ref(database, "GameFolder/Rooms/" + roomId);
+    const newData = {
+      isSanma: !isSanma,
+    };
+    update(pathRef, newData);
+    setIsSanma(!isSanma);
+  };
+
   const initRoom = () => {
     const database = getDatabase(firebaseApp);
     const pathRef = ref(database, "GameFolder/Rooms/" + roomId);
@@ -46,6 +62,7 @@ export default function GameScreen() {
     const initData = {
       users: initUsers,
       reBo: 0,
+      isSanma: false,
     };
 
     set(pathRef, initData);
@@ -84,6 +101,7 @@ export default function GameScreen() {
           // console.log(newData.users);
           setUsers(newData.users);
           setReBo(newData.reBo);
+          setIsSanma(newData.isSanma);
         }
       },
       (error) => {}
@@ -107,6 +125,18 @@ export default function GameScreen() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             ルームID : {roomId}
           </Typography>
+
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isSanma}
+                onChange={handleChangeIsSanma}
+                defaultChecked
+                color="secondary"
+              />
+            }
+            label="三人麻雀"
+          />
           {/* <Button color="inherit">ルームID:{roomId}</Button> */}
         </Toolbar>
       </AppBar>
@@ -120,6 +150,7 @@ export default function GameScreen() {
         }}
       >
         {/* AvatarPositionはCustomAvatarの場所 */}
+
         <Stack spacing={8} alignItems={"center"}>
           <Stack>
             <CustomAvatar
@@ -127,19 +158,33 @@ export default function GameScreen() {
               roomId={roomId}
               users={users}
               AvatarPosition={2}
+              isSanma={isSanma}
             />
           </Stack>
           <Stack direction="row" spacing={5} alignItems={"center"}>
             <Stack>
-              <CustomAvatar
-                reBo={reBo}
-                roomId={roomId}
-                users={users}
-                AvatarPosition={3}
-              />
+              {isSanma ? (
+                <Avatar
+                  sx={{
+                    height: "70px",
+                    width: "70px",
+                    color: "black",
+                  }}
+                >
+                  <CancelIcon />
+                </Avatar>
+              ) : (
+                <CustomAvatar
+                  reBo={reBo}
+                  roomId={roomId}
+                  users={users}
+                  AvatarPosition={3}
+                  isSanma={isSanma}
+                />
+              )}
             </Stack>
 
-            <ReBo roomId={roomId} users={users} reBo={reBo} />
+            <ReBo isSanma={isSanma} roomId={roomId} users={users} reBo={reBo} />
 
             <Stack>
               <CustomAvatar
@@ -147,6 +192,7 @@ export default function GameScreen() {
                 roomId={roomId}
                 users={users}
                 AvatarPosition={1}
+                isSanma={isSanma}
               />
             </Stack>
           </Stack>
@@ -156,6 +202,7 @@ export default function GameScreen() {
               roomId={roomId}
               users={users}
               AvatarPosition={0}
+              isSanma={isSanma}
             />
           </Stack>
         </Stack>

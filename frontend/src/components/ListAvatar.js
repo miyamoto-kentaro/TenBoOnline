@@ -18,6 +18,7 @@ export default function ListAvatar(props) {
   const roomId = props.roomId;
   const isActiveListAvatar = props.isActiveListAvatar;
   const activateListAvatar = props.activateListAvatar;
+  const isSanma = props.isSanma;
 
   // const isMe = AvatarListIndex === AvatarPosition;
   // console.log(isMe);
@@ -54,6 +55,7 @@ export default function ListAvatar(props) {
         <ListItem disableGutters>
           <ListItemButton>
             <RonOrTsumoForm
+              isSanma={isSanma}
               roomId={roomId}
               users={users}
               AvatarPosition={AvatarPosition}

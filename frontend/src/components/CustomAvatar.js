@@ -13,6 +13,7 @@ export default function CustomAvatar(props) {
   const users = props.users;
   const roomId = props.roomId;
   const AvatarPosition = props.AvatarPosition;
+  const isSanma = props.isSanma;
 
   const [isDialogOpen, setisDialogOpen] = useState(false);
 
@@ -64,6 +65,7 @@ export default function CustomAvatar(props) {
         reBo={reBo}
         users={users}
         roomId={roomId}
+        isSanma={isSanma}
       />
     </Stack>
   );
